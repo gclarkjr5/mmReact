@@ -1,0 +1,23 @@
+{
+  "name": "reactstuff",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "fast-csv": "^2.4.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "pondjs": "^0.8.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-highcharts": "^12.0.0",
+    "react-highlight": "^0.10.0",
+    "react-scripts": "1.0.10",
+    "react-timeseries-charts": "^0.12.8"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
