@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Bars from './components/chart'
+import { bubble as Menu } from 'react-burger-menu'
+import Example from './components/menu'
 
 class App extends Component {
   render() {
@@ -14,7 +16,8 @@ class App extends Component {
         <p className="App-intro">
           I am started, edit <code>src/App.js</code> and save to reload.
         </p>
-        <Bars />
+        <Example />
+        {/*<Bars />*/}
       </div>
     );
   }

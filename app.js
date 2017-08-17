@@ -2,24 +2,12 @@
 
 const express = require(`express`);
 const app = express();
-// const http = require('http').Server(app);
-// const io = require('socket.io')(http);
-
+const routes = require(`./routes`)
 const port = process.env.PORT || 5000;
-
-const csvWork = require(`./csvWork`);
+// const port = 3000;
 
 app.use(`/`, express.static(`public`));
-
-app.get(`/`, (req, res) => {
-    res.send('Hello World')
-});
-
-app.get(`/data`, (req, res) => {
-    csvWork(data => {
-        res.status(200).json(data)
-    })
-})
+app.use(`/api`, routes)
 
 app.listen(port);
 

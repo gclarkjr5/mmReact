@@ -6,7 +6,7 @@ const _ = require(`lodash`);
 
 module.exports = callback => {
     let keyStream = fs.createReadStream(`./key.csv`);
-    let stream = fs.createReadStream("./test.csv");
+    let stream = fs.createReadStream("./brackets.csv");
 
     let Master;
     let Rest = [];
