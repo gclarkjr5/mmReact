@@ -218,8 +218,59 @@ module.exports = callback => {
 
 
             let orderObjs = _.orderBy(FinalObjs, [`TotalPoints`], [`desc`])
-            // console.log(orderObjs)
-            callback(orderObjs)
+            let Participants = _.map(orderObjs, x => {
+                    return x.Name
+                });
+
+                let Round64 = _.map(orderObjs, x => {
+                    return x.Round64Points
+                });
+                let Round32 = _.map(orderObjs, x => {
+                    return x.Round32Points
+                });
+                let Sweet16 = _.map(orderObjs, x => {
+                    return x.Sweet16Points
+                });
+                let Elite8 = _.map(orderObjs, x => {
+                    return x.Elite8Points
+                });
+                let Final4 = _.map(orderObjs, x => {
+                    return x.Final4Points
+                });
+                let Championship = _.map(orderObjs, x => {
+                    return x.CHAMPIONSHIPPoints
+                });
+                let MaxPtsRemain = _.map(orderObjs, x => {
+                    return x.PtsRemain
+                });
+
+                let series = [{
+                    name: `Round64`,
+                    data: Round64
+                }, {
+                    name: `Round32`,
+                    data: Round32
+                }, {
+                    name: `Sweet16`,
+                    data: Sweet16
+                }, {
+                    name: `Elite8`,
+                    data: Elite8
+                }, {
+                    name: `Final4`,
+                    data: Final4
+                }, {
+                    name: `CHAMPIONSHIP`,
+                    data: Championship
+                }, {
+                    name: `MaxPtsRemain`,
+                    data: MaxPtsRemain
+                }];
+                let data = {
+                    categories: Participants,
+                    series: series
+                }
+            callback(data)
         });
 }
 

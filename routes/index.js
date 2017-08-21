@@ -5,32 +5,35 @@ const routes = express.Router();
 
 const keyData = require(`./key`);
 const bracketData = require(`./brackets`);
+const csvWork = require(`./csvWork`)
 
-routes
-    .get(`/key`, (req, res) => {
+
+routes.route(`/key`)
+    .get((req, res) => {
         keyData(x => {
             res.status(200).json(x)
         })
     })
 
-routes
-    .get(`/brackets`, (req, res) => {
+routes.route(`/brackets`)
+    .get((req, res) => {
         bracketData(x => {
             res.status(200).json(x)
         })
     })
 
-const csvWork = require(`./csvWork`)
 
-// routes.get('/', (req, res) => {
-//     res.status(200).json({ message: 'Connected!' });
-// });
-
-routes
-    .get(`/data`, (req, res) => {
+routes.route(`/data`)
+    .get((req, res) => {
         csvWork(data => {
             res.status(200).json(data)
         })
     })
+    .post((req, res) => {
+        res.json(req.body)
+    })
+
+// Route for user to browse through the tournament to see how things played out
+
 
 module.exports = routes;

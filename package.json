@@ -4,10 +4,11 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
     "fast-csv": "^2.4.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "nodemon": "^1.11.0",
     "pondjs": "^0.8.7",
     "react": "^15.6.1",
     "react-burger-menu": "^2.1.4",
@@ -23,5 +24,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "backend": "nodemon app.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
