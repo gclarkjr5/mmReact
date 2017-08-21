@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // Note that Highcharts has to be required separately
 import ReactHighcharts from 'react-highcharts';
 import axios from 'axios';
-import _ from 'lodash';
 
 class Bars extends Component {
     constructor(props) {
