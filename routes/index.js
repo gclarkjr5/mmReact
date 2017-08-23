@@ -2,11 +2,13 @@
 
 const express = require(`express`);
 const routes = express.Router();
+const bodyParser = require(`body-parser`);
 
 const keyData = require(`./key`);
 const bracketData = require(`./brackets`);
 const csvWork = require(`./csvWork`)
 
+routes.use(bodyParser.json())
 
 routes.route(`/key`)
     .get((req, res) => {
@@ -21,7 +23,6 @@ routes.route(`/brackets`)
             res.status(200).json(x)
         })
     })
-
 
 routes.route(`/data`)
     .get((req, res) => {

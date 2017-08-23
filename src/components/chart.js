@@ -10,16 +10,16 @@ class Bars extends Component {
             config: {
                 colors: ["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"],
                 chart: {
-                    height: 750,
-                    backgroundColor: {
-                        linearGradient: [0, 0, 0, 0],
-                        stops: [
-                            [0, 'rgb(255, 255, 255)'],
-                            [1, 'rgb(240, 240, 255)']
-                        ]
-                    },
+                    height: 725,
+                    // backgroundColor: {
+                    //     linearGradient: [0, 0, 0, 0],
+                    //     stops: [
+                    //         [0, 'rgb(255, 255, 255)'],
+                    //         [1, 'rgb(240, 240, 255)']
+                    //     ]
+                    // },
                     type: 'bar',
-                    // backgroundColor: `rgba(255, 255, 255, 0.1)`,
+                    backgroundColor: `rgba(255, 255, 255, 0.1)`,
                     animation: true
                 },
                 title: {
@@ -42,18 +42,6 @@ class Bars extends Component {
                         font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
                     }
                 },
-                // legend: {
-                //     itemStyle: {
-                //         font: '9pt Trebuchet MS, Verdana, sans-serif',
-                //         color: 'black'
-                //     },
-                //     itemHoverStyle: {
-                //         color: 'gray'
-                //     },
-                //     layout: 'vertical',
-                //     align: 'right',
-                //     verticalAlign: 'middle'
-                // },
                 xAxis: {
                     categories: {}
                 },
@@ -65,10 +53,9 @@ class Bars extends Component {
                     reversedStacks: false
                 },
                 legend: {
-                    reversed: false,
-                    itemStyle: {
-                        color: `#ffffff`
-                    }
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle'
                 },
                 plotOptions: {
                     series: {
@@ -89,17 +76,6 @@ class Bars extends Component {
     setSeries = () => {
         axios.get(`http://localhost:5000/api/data`)
             .then(response => {
-
-                // this.setState({
-                //     config: _.set(this.state.config.xAxis.categories, _.map(response.data.categories, x => {
-                //         return x
-                //     }))
-                // })
-                // this.setState({
-                //     config: _.set(this.state.config.series, _.map(response.data.series, x => {
-                //         return x
-                //     }))
-                // })
                 this.state.config.xAxis.categories = response.data.categories
                 this.state.config.series = response.data.series
                 this.setState({

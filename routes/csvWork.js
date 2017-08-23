@@ -38,8 +38,7 @@ module.exports = callback => {
             });
         });
 
-    csv
-        .fromStream(stream, { headers: true })
+    csv.fromStream(stream, { headers: true })
         .on("data", function (data) {
             //  console.log(data);
             if (data.Name === `Master`) {
@@ -78,8 +77,6 @@ module.exports = callback => {
                         // Get the strings for each round in Master
                         let userString = value;
                         let masterString = Master[key];
-                        //    console.log(userString)
-                        //    console.log(masterString)
 
                         // Divide the strings up into all of the games that were chosen
                         let userPicks = userString.match(/.{1,3}/g);
@@ -92,6 +89,7 @@ module.exports = callback => {
                                 let obs = _.find(Key, o => {
                                     return o.hasOwnProperty(val)
                                 });
+
                                 return obs[val]
                             });
                             x[`Final Four`] = arr
@@ -219,57 +217,57 @@ module.exports = callback => {
 
             let orderObjs = _.orderBy(FinalObjs, [`TotalPoints`], [`desc`])
             let Participants = _.map(orderObjs, x => {
-                    return x.Name
-                });
+                return x.Name
+            });
 
-                let Round64 = _.map(orderObjs, x => {
-                    return x.Round64Points
-                });
-                let Round32 = _.map(orderObjs, x => {
-                    return x.Round32Points
-                });
-                let Sweet16 = _.map(orderObjs, x => {
-                    return x.Sweet16Points
-                });
-                let Elite8 = _.map(orderObjs, x => {
-                    return x.Elite8Points
-                });
-                let Final4 = _.map(orderObjs, x => {
-                    return x.Final4Points
-                });
-                let Championship = _.map(orderObjs, x => {
-                    return x.CHAMPIONSHIPPoints
-                });
-                let MaxPtsRemain = _.map(orderObjs, x => {
-                    return x.PtsRemain
-                });
+            let Round64 = _.map(orderObjs, x => {
+                return x.Round64Points
+            });
+            let Round32 = _.map(orderObjs, x => {
+                return x.Round32Points
+            });
+            let Sweet16 = _.map(orderObjs, x => {
+                return x.Sweet16Points
+            });
+            let Elite8 = _.map(orderObjs, x => {
+                return x.Elite8Points
+            });
+            let Final4 = _.map(orderObjs, x => {
+                return x.Final4Points
+            });
+            let Championship = _.map(orderObjs, x => {
+                return x.CHAMPIONSHIPPoints
+            });
+            let MaxPtsRemain = _.map(orderObjs, x => {
+                return x.PtsRemain
+            });
 
-                let series = [{
-                    name: `Round64`,
-                    data: Round64
-                }, {
-                    name: `Round32`,
-                    data: Round32
-                }, {
-                    name: `Sweet16`,
-                    data: Sweet16
-                }, {
-                    name: `Elite8`,
-                    data: Elite8
-                }, {
-                    name: `Final4`,
-                    data: Final4
-                }, {
-                    name: `CHAMPIONSHIP`,
-                    data: Championship
-                }, {
-                    name: `MaxPtsRemain`,
-                    data: MaxPtsRemain
-                }];
-                let data = {
-                    categories: Participants,
-                    series: series
-                }
+            let series = [{
+                name: `Round64`,
+                data: Round64
+            }, {
+                name: `Round32`,
+                data: Round32
+            }, {
+                name: `Sweet16`,
+                data: Sweet16
+            }, {
+                name: `Elite8`,
+                data: Elite8
+            }, {
+                name: `Final4`,
+                data: Final4
+            }, {
+                name: `CHAMPIONSHIP`,
+                data: Championship
+            }, {
+                name: `MaxPtsRemain`,
+                data: MaxPtsRemain
+            }];
+            let data = {
+                categories: Participants,
+                series: series
+            }
             callback(data)
         });
 }
