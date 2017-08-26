@@ -4,39 +4,13 @@ const csv = require(`fast-csv`);
 const fs = require(`fs`);
 const _ = require(`lodash`);
 
-module.exports = callback => {
-    let keyStream = fs.createReadStream(`./key.csv`);
-    let stream = fs.createReadStream("./brackets.csv");
+module.exports = (Key, callback) => {
 
     let Master;
     let Rest = [];
 
-    let Key = [];
 
-    csv.fromStream(keyStream, { headers: true })
-        .on(`data`, (data) => {
-            Key.push(data)
-        })
-        .on(`end`, () => {
-            _.forEach(Key, (value, key) => {
-                if (value.Rank.length === 1) {
-                    value.Rank = `0${value.Rank}`
-                }
-            });
-            let p = _.map(Key, (value, key) => {
-                _.forEach(value, (val, ky) => {
-                    if (ky !== `Rank`) {
-                        // Do Nothing
-                        value[`${ky.charAt(0)}${value.Rank}`] = val
-                        delete value[ky]
-                    } else {
-                        // delete value[ky]
-                        // console.log(ky)
-                    }
-                });
-                return value
-            });
-        });
+    let stream = fs.createReadStream("./brackets.csv");
 
     csv.fromStream(stream, { headers: true })
         .on("data", function (data) {
@@ -89,7 +63,6 @@ module.exports = callback => {
                                 let obs = _.find(Key, o => {
                                     return o.hasOwnProperty(val)
                                 });
-
                                 return obs[val]
                             });
                             x[`Final Four`] = arr
@@ -269,6 +242,5 @@ module.exports = callback => {
                 series: series
             }
             callback(data)
-        });
+        })
 }
-

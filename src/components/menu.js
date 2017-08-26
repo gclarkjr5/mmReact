@@ -14,7 +14,7 @@ class Burger extends Component {
         position: 'fixed',
         width: '36px',
         height: '30px',
-        left: '36px',
+        right: '36px',
         top: '26px',
         color: 'white'
       },
@@ -37,8 +37,7 @@ class Burger extends Component {
         fill: 'white'
       },
       bmItemList: {
-        color: 'black',
-        padding: '0.8em'
+        color: 'black'
       },
       bmOverlay: {
         background: 'rgba(0, 0, 0, 0.2)'
@@ -47,7 +46,7 @@ class Burger extends Component {
 
     return (
       <div id="outer-container">
-        <Menu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} styles={styles}>
+        <Menu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} styles={styles} right >
           <a id="home" className="menu-item" href="/">Home</a>
           <a id="about" className="menu-item" href="http://www.ncaa.com/march-madness">NCAA</a>
           <a id="contact" className="menu-item" href="http://www.ncaa.com/interactive-bracket/basketball-men/d1">Bracket</a>
@@ -56,12 +55,6 @@ class Burger extends Component {
           <Bars />
         </main>
       </div>
-      /*<Menu styles={styles} >
-        <a id="home" className="menu-item" href="/">Home</a>
-        <a id="about" className="menu-item" href="http://www.ncaa.com/march-madness">NCAA</a>
-        <a id="contact" className="menu-item" href="http://www.ncaa.com/interactive-bracket/basketball-men/d1">Bracket</a>
-        <a onClick={this.showSettings} className="menu-item--small" href="">Settings</a>
-      </Menu>*/
     );
   }
 }
