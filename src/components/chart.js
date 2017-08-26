@@ -11,13 +11,7 @@ class Bars extends Component {
                 colors: ["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"],
                 chart: {
                     height: 725,
-                    // backgroundColor: {
-                    //     linearGradient: [0, 0, 0, 0],
-                    //     stops: [
-                    //         [0, 'rgb(255, 255, 255)'],
-                    //         [1, 'rgb(240, 240, 255)']
-                    //     ]
-                    // },
+                    zoomType: `x`,
                     type: 'bar',
                     backgroundColor: `rgba(255, 255, 255, 0.1)`,
                     animation: true
@@ -74,7 +68,7 @@ class Bars extends Component {
     }
 
     setSeries = () => {
-        axios.get(`http://localhost:5000/api/data`)
+        axios.get(`/api/data`)
             .then(response => {
                 this.state.config.xAxis.categories = response.data.categories
                 this.state.config.series = response.data.series

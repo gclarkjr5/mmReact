@@ -7,6 +7,7 @@ const bodyParser = require(`body-parser`);
 const keyData = require(`./key`);
 const bracketData = require(`./brackets`);
 const csvWork = require(`./csvWork`)
+const newcsv = require(`./new`);
 
 routes.use(bodyParser.json())
 
@@ -32,6 +33,13 @@ routes.route(`/data`)
     })
     .post((req, res) => {
         res.json(req.body)
+    })
+
+routes.route(`/new`)
+    .get((req, res) => {
+        newcsv(x => {
+            res.json(x)
+        })
     })
 
 // Route for user to browse through the tournament to see how things played out
