@@ -6,12 +6,6 @@ import 'rc-slider/assets/index.css';
 import axios from 'axios';
 
 class Burger extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      hchartData: null
-    }
-  }
 
   showSettings(event) {
     event.preventDefault();
@@ -143,9 +137,7 @@ class Burger extends Component {
         </Menu>
         <main id="page-wrap">
           <div>
-            <Bars
-              data={this.state.hchartData}
-            />
+            <Bars />
             <Slider
               style={sliderStyle}
               min={0}

@@ -6,6 +6,13 @@ import axios from 'axios';
 import _ from 'lodash';
 
 class Bars extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: this.props.data
+        }
+    }
+
     render() {
         const plotOptions = {
             series: {
@@ -16,8 +23,7 @@ class Bars extends Component {
         const getData = () => {
             axios.get(`/api/data`)
                 .then(response => {
-                    this.props.data = response.data
-                    console.log(this.props.data)
+                    
                 })
                 .catch(err => {
                     console.log(err)
