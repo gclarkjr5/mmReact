@@ -144,8 +144,7 @@ class Burger extends Component {
         <main id="page-wrap">
           <div>
             <Bars
-              config={config}
-              data={this.state.hchartData}
+              /*data={this.state.hchartData}*/
             />
             <Slider
               style={sliderStyle}
@@ -153,7 +152,7 @@ class Burger extends Component {
               max={5}
               marks={marks}
               defaultValue={5}
-              onAfterChange={changeData}
+              /*onAfterChange={changeData}*/
             />
           </div>
         </main>
