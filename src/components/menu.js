@@ -4,14 +4,68 @@ import Bars from './chart';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import axios from 'axios';
+import _ from 'lodash';
 
 class Burger extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      categories: [],
+      data: [],
+      rounds: [
+        `Round64`,
+        `Round32`,
+        `Sweet16`,
+        `Elite8`,
+        `Final4`,
+        `CHAMPIONSHIP`
+      ]
+    }
+
+    this.getInitialData = this.getInitialData.bind(this);
+    this.getNewData = this.getNewData.bind(this);
+  }
+
+  componentDidMount = () => {
+    this.getInitialData();
+  }
+
+  getInitialData = () => {
+    axios.get(`/api/data`)
+      .then(response => {
+        this.setState({
+          categories: response.data.categories,
+          data: response.data.series
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  getNewData = (value) => {
+    axios.post(`/api/data`, { round: this.state.rounds[value] })
+      .then(response => {
+        this.setState({
+          categories: response.data.categories,
+          data: response.data.series
+        })
+      })
+      .catch(err => {
+        return {
+          error: err
+        }
+      })
+  }
+
+
 
   showSettings(event) {
     event.preventDefault();
   }
 
   render() {
+    const { categories, data } = this.state;
     // const config = {
     //   colors: ["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"],
     //   chart: {
@@ -103,30 +157,15 @@ class Burger extends Component {
       }
     }
 
-    const marks = {
-      0: this.props.rounds[0],
-      1: this.props.rounds[1],
-      2: this.props.rounds[2],
-      3: this.props.rounds[3],
-      4: this.props.rounds[4],
-      5: this.props.rounds[5]
-    }
+    let marks = {};
+    _.forEach(this.state.rounds, (round, i) => {
+      marks[i] = round
+    })
     const sliderStyle = {
       width: '350px',
       left: '35%'
     }
 
-    const changeData = (value) => {
-      axios.post(`/api/data`, { round: this.props.rounds[value] })
-        .then(response => {
-          this.setState({
-            hchartData: response.data
-          })
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
 
     return (
       <div id="outer-container">
@@ -137,14 +176,17 @@ class Burger extends Component {
         </Menu>
         <main id="page-wrap">
           <div>
-            <Bars />
+            <Bars
+              categories={categories}
+              data={data}
+            />
             <Slider
               style={sliderStyle}
               min={0}
               max={5}
               marks={marks}
               defaultValue={5}
-              /*onAfterChange={changeData}*/
+              onAfterChange={this.getNewData}
             />
           </div>
         </main>
