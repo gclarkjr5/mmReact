@@ -2,91 +2,54 @@ import React, { Component } from 'react';
 // Note that Highcharts has to be required separately
 import ReactHighcharts from 'react-highcharts';
 import axios from 'axios';
+import _ from 'lodash';
 
 class Bars extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            config: {
-                colors: ["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"],
-                chart: {
-                    height: 725,
-                    zoomType: `x`,
-                    type: 'bar',
-                    backgroundColor: `rgba(255, 255, 255, 0.1)`,
-                    animation: true
-                },
-                title: {
-                    text: `NCAA MEN'S BASKETBALL TOURNAMENT`,
-                    style: {
-                        color: `#ffffff`
-                    },
-                    style: {
-                        color: '#000',
-                        font: 'bold 24px "Trebuchet MS", Verdana, sans-serif'
-                    }
-                },
-                subtitle: {
-                    text: `MARCH MADNESS 2017`,
-                    style: {
-                        color: `#ffffff`
-                    },
-                    style: {
-                        color: '#666666',
-                        font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
-                    }
-                },
-                xAxis: {
-                    categories: {}
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'POINTS'
-                    },
-                    reversedStacks: false
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle'
-                },
-                plotOptions: {
-                    series: {
-                        stacking: 'normal',
-                        borderColor: `#000000`,
-                        pointWidth: 12
-                    }
-                },
-                series: {}
-            }
-        }
-    }
 
-    componentDidMount = () => {
-        this.setSeries();
-    }
+    // componentDidMount = () => {
+    //     this.setSeries();
+    // }
 
-    setSeries = () => {
-        axios.get(`/api/data`)
-            .then(response => {
-                this.state.config.xAxis.categories = response.data.categories
-                this.state.config.series = response.data.series
-                this.setState({
-                    config: this.state.config
-                })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
+    // setSeries = () => {
+    //     axios.get(`/api/data`)
+    //         .then(response => {
+    //             this.props.config.xAxis.categories = response.data.categories
+    //             this.props.config.series = response.data.series
+    //             this.setState({
+    //                 config: this.props.config
+    //             })
+    //         })
+    //         .catch(err => {
+    //             console.log(err)
+    //         })
+    // }
 
     render() {
 
+        const getData = () => {
+            axios.get(`/api/data`)
+                .then(response => {
+                    this.props.config.xAxis.categories = response.data.categories
+                    this.props.config.series = response.data.series
+                    // this.props.config
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+
+        getData()
+        // this.props.config = _.isUndefined(this.props.config.series) ? getData() : this.props.config
+
+        this.props.config.xAxis.categories = _.isUndefined(this.props.data) ? this.props.config.xAxis.categories : this.props.data.categories;
+        this.props.config.series = _.isUndefined(this.props.data) ? this.props.config.series : this.props.data.series
+
+        // console.log(ReactHighcharts.Highcharts.getOptions())
+
         return (
             <ReactHighcharts
-                config={this.state.config}
+                config={this.props.config}
+                ref="chart"
             />
         )
     }

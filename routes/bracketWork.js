@@ -4,11 +4,10 @@ const csv = require(`fast-csv`);
 const fs = require(`fs`);
 const _ = require(`lodash`);
 
-module.exports = (Key, callback) => {
+module.exports = (Key, round, callback) => {
 
     let Master;
     let Rest = [];
-
 
     let stream = fs.createReadStream("./brackets.csv");
 
@@ -17,6 +16,12 @@ module.exports = (Key, callback) => {
             //  console.log(data);
             if (data.Name === `Master`) {
                 Master = data
+                const keys = Object.keys(Master)
+                if (!_.isNull(round)) {
+                    for (i = _.indexOf(keys, round) + 1; i < keys.length; i++) {
+                        Master[keys[i]] = Master[keys[i]].replace(/./ig, `-`)
+                    }
+                }
             } else {
                 Rest.push(data)
             }
@@ -39,8 +44,12 @@ module.exports = (Key, callback) => {
 
             // Get the last finished round from Master; this will be compared against future rounds in the users to calculate Pts Remaining
             let lastFinishedRound = _.filter(Master, x => {
+                // If the round is unfinished then '---' will be in the string.. only return if there are no '---'s
                 return (_.includes(x, `---`) == false)
+                // Pop off the last element which was the last round finished, then split the string into and array of with each item of 3 characters
+                // which represents the key for the winning teams
             }).pop().match(/.{1,3}/g);
+
 
             // Create the final objects for each user that will be used for HighCharts
             let FinalObjs = _.map(Rest, x => {

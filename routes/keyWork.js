@@ -5,7 +5,8 @@ const fs = require(`fs`);
 const _ = require(`lodash`);
 const bracketWork = require(`./bracketWork`);
 
-module.exports = callback => {
+module.exports = (round, callback) => {
+
     let keyStream = fs.createReadStream(`./key.csv`);
 
     let Key = [];
@@ -16,24 +17,19 @@ module.exports = callback => {
         })
         .on(`end`, () => {
             _.forEach(Key, (value, key) => {
-                if (value.Rank.length === 1) {
-                    value.Rank = `0${value.Rank}`
-                }
-            });
-            let p = _.map(Key, (value, key) => {
                 _.forEach(value, (val, ky) => {
                     if (ky !== `Rank`) {
                         // Do Nothing
                         value[`${ky.charAt(0)}${value.Rank}`] = val
                         delete value[ky]
                     } else {
-                        // delete value[ky]
-                        // console.log(ky)
+                        if (val.length === 1) {
+                            value[ky] = `0${val}`
+                        }
                     }
                 });
-                return value
             });
-            bracketWork(Key, x => {
+            bracketWork(Key, round, x => {
                 callback(x)
             });
         });

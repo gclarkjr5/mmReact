@@ -26,12 +26,16 @@ routes.route(`/brackets`)
 
 routes.route(`/data`)
     .get((req, res) => {
-        csvWork(data => {
+        csvWork(null, data => {
             res.status(200).json(data)
         })
     })
     .post((req, res) => {
-        res.json(req.body)
+        const round = req.body.round
+        csvWork(round, data => {
+            res.status(200).json(data)
+        })
+        
     })
 
 // Route for user to browse through the tournament to see how things played out

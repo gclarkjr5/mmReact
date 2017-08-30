@@ -1,15 +1,80 @@
 import React, { Component } from 'react';
 import { scaleRotate as Menu } from 'react-burger-menu'
 import Bars from './chart';
+import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import axios from 'axios';
 
 class Burger extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hchartData: undefined
+    }
+  }
+
   showSettings(event) {
     event.preventDefault();
   }
 
   render() {
+    const config = {
+      colors: ["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"],
+      chart: {
+        height: 700,
+        zoomType: `x`,
+        type: 'bar',
+        backgroundColor: `rgba(255, 255, 255, 0.1)`
+      },
+      title: {
+        text: `NCAA MEN'S BASKETBALL TOURNAMENT`,
+        style: {
+          color: `#ffffff`
+        },
+        style: {
+          color: '#000',
+          font: 'bold 24px "Trebuchet MS", Verdana, sans-serif'
+        }
+      },
+      subtitle: {
+        text: `MARCH MADNESS 2017`,
+        style: {
+          color: `#ffffff`
+        },
+        style: {
+          color: '#666666',
+          font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
+        }
+      },
+      xAxis: {
+        categories: undefined
+      },
+      yAxis: {
+        min: 0,
+        title: {
+          text: 'POINTS'
+        },
+        reversedStacks: false
+      },
+      legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+      },
+      plotOptions: {
+        series: {
+          stacking: 'normal',
+          borderColor: `#000000`,
+          pointWidth: 12,
+          animation: {
+            duration: 2000
+          }
+        }
+      },
+      series: undefined
+    }
 
-    var styles = {
+    const styles = {
       bmBurgerButton: {
         position: 'fixed',
         width: '36px',
@@ -44,6 +109,31 @@ class Burger extends Component {
       }
     }
 
+    const marks = {
+      0: this.props.rounds[0],
+      1: this.props.rounds[1],
+      2: this.props.rounds[2],
+      3: this.props.rounds[3],
+      4: this.props.rounds[4],
+      5: this.props.rounds[5]
+    }
+    const sliderStyle = {
+      width: '350px',
+      left: '35%'
+    }
+
+    const changeData = (value) => {
+      axios.post(`/api/data`, { round: this.props.rounds[value] })
+        .then(response => {
+          this.setState({
+            hchartData: response.data
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+
     return (
       <div id="outer-container">
         <Menu pageWrapId={"page-wrap"} outerContainerId={"outer-container"} styles={styles} right >
@@ -52,7 +142,20 @@ class Burger extends Component {
           <a id="contact" className="menu-item" href="http://www.ncaa.com/interactive-bracket/basketball-men/d1">Bracket</a>
         </Menu>
         <main id="page-wrap">
-          <Bars />
+          <div>
+            <Bars
+              config={config}
+              data={this.state.hchartData}
+            />
+            <Slider
+              style={sliderStyle}
+              min={0}
+              max={5}
+              marks={marks}
+              defaultValue={5}
+              onAfterChange={changeData}
+            />
+          </div>
         </main>
       </div>
     );
