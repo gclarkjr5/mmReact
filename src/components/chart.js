@@ -14,15 +14,18 @@ class Bars extends Component {
         }
 
         const getData = () => {
-            axios.get(`/api/getData`)
+            axios.get(`/api/data`)
                 .then(response => {
-                    console.log(response)
+                    this.props.data = response.data
+                    console.log(this.props.data)
                 })
                 .catch(err => {
                     console.log(err)
                 })
         }
+        getData();
 
+        // let categories = _.isUndefined(this.props.data) ? [] : this.props.data.categories;
 
         return (
             <div className="app">
@@ -41,7 +44,7 @@ class Bars extends Component {
                         style={{ color: `#666666`, font: `bold 16px "Trebuchet MS", Verdana, sans-serif` }}
                     >MARCH MADNESS 2017</Subtitle>
 
-                    <XAxis id="x" categories={this.props.categories} />
+                    <XAxis id="x" />
 
                     <YAxis id="number">
                         <BarSeries id="jane" name="Jane" data={[3, 2, 1, 3, 4]} />

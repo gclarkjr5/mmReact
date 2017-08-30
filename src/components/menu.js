@@ -9,7 +9,7 @@ class Burger extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      hchartData: undefined
+      hchartData: null
     }
   }
 
@@ -18,61 +18,61 @@ class Burger extends Component {
   }
 
   render() {
-    const config = {
-      colors: ["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"],
-      chart: {
-        height: 700,
-        zoomType: `x`,
-        type: 'bar',
-        backgroundColor: `rgba(255, 255, 255, 0.1)`
-      },
-      title: {
-        text: `NCAA MEN'S BASKETBALL TOURNAMENT`,
-        style: {
-          color: `#ffffff`
-        },
-        style: {
-          color: '#000',
-          font: 'bold 24px "Trebuchet MS", Verdana, sans-serif'
-        }
-      },
-      subtitle: {
-        text: `MARCH MADNESS 2017`,
-        style: {
-          color: `#ffffff`
-        },
-        style: {
-          color: '#666666',
-          font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
-        }
-      },
-      xAxis: {
-        categories: undefined
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: 'POINTS'
-        },
-        reversedStacks: false
-      },
-      legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
-      },
-      plotOptions: {
-        series: {
-          stacking: 'normal',
-          borderColor: `#000000`,
-          pointWidth: 12,
-          animation: {
-            duration: 2000
-          }
-        }
-      },
-      series: undefined
-    }
+    // const config = {
+    //   colors: ["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"],
+    //   chart: {
+    //     height: 700,
+    //     zoomType: `x`,
+    //     type: 'bar',
+    //     backgroundColor: `rgba(255, 255, 255, 0.1)`
+    //   },
+    //   title: {
+    //     text: `NCAA MEN'S BASKETBALL TOURNAMENT`,
+    //     style: {
+    //       color: `#ffffff`
+    //     },
+    //     style: {
+    //       color: '#000',
+    //       font: 'bold 24px "Trebuchet MS", Verdana, sans-serif'
+    //     }
+    //   },
+    //   subtitle: {
+    //     text: `MARCH MADNESS 2017`,
+    //     style: {
+    //       color: `#ffffff`
+    //     },
+    //     style: {
+    //       color: '#666666',
+    //       font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
+    //     }
+    //   },
+    //   xAxis: {
+    //     categories: undefined
+    //   },
+    //   yAxis: {
+    //     min: 0,
+    //     title: {
+    //       text: 'POINTS'
+    //     },
+    //     reversedStacks: false
+    //   },
+    //   legend: {
+    //     layout: 'vertical',
+    //     align: 'right',
+    //     verticalAlign: 'middle'
+    //   },
+    //   plotOptions: {
+    //     series: {
+    //       stacking: 'normal',
+    //       borderColor: `#000000`,
+    //       pointWidth: 12,
+    //       animation: {
+    //         duration: 2000
+    //       }
+    //     }
+    //   },
+    //   series: undefined
+    // }
 
     const styles = {
       bmBurgerButton: {
@@ -144,7 +144,7 @@ class Burger extends Component {
         <main id="page-wrap">
           <div>
             <Bars
-              /*data={this.state.hchartData}*/
+              data={this.state.hchartData}
             />
             <Slider
               style={sliderStyle}
