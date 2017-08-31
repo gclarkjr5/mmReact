@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { scaleRotate as Menu } from 'react-burger-menu'
 import Bars from './chart';
 import Slider from 'rc-slider';
+import MM from '../MM.png';
 import 'rc-slider/assets/index.css';
 import axios from 'axios';
 import _ from 'lodash';
@@ -12,6 +13,8 @@ class Burger extends Component {
     this.state = {
       categories: [],
       data: [],
+      selections: [],
+      sliderheight: 40,
       rounds: [
         `Round64`,
         `Round32`,
@@ -35,7 +38,8 @@ class Burger extends Component {
       .then(response => {
         this.setState({
           categories: response.data.categories,
-          data: response.data.series
+          data: response.data.series,
+          selections: response.data.selections
         })
       })
       .catch(err => {
@@ -48,7 +52,8 @@ class Burger extends Component {
       .then(response => {
         this.setState({
           categories: response.data.categories,
-          data: response.data.series
+          data: response.data.series,
+          selections: response.data.selections
         })
       })
       .catch(err => {
@@ -65,62 +70,7 @@ class Burger extends Component {
   }
 
   render() {
-    const { categories, data } = this.state;
-    // const config = {
-    //   colors: ["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"],
-    //   chart: {
-    //     height: 700,
-    //     zoomType: `x`,
-    //     type: 'bar',
-    //     backgroundColor: `rgba(255, 255, 255, 0.1)`
-    //   },
-    //   title: {
-    //     text: `NCAA MEN'S BASKETBALL TOURNAMENT`,
-    //     style: {
-    //       color: `#ffffff`
-    //     },
-    //     style: {
-    //       color: '#000',
-    //       font: 'bold 24px "Trebuchet MS", Verdana, sans-serif'
-    //     }
-    //   },
-    //   subtitle: {
-    //     text: `MARCH MADNESS 2017`,
-    //     style: {
-    //       color: `#ffffff`
-    //     },
-    //     style: {
-    //       color: '#666666',
-    //       font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
-    //     }
-    //   },
-    //   xAxis: {
-    //     categories: undefined
-    //   },
-    //   yAxis: {
-    //     min: 0,
-    //     title: {
-    //       text: 'POINTS'
-    //     },
-    //     reversedStacks: false
-    //   },
-    //   legend: {
-    //     layout: 'vertical',
-    //     align: 'right',
-    //     verticalAlign: 'middle'
-    //   },
-    //   plotOptions: {
-    //     series: {
-    //       stacking: 'normal',
-    //       borderColor: `#000000`,
-    //       pointWidth: 12,
-    //       animation: {
-    //         duration: 2000
-    //       }
-    //     }
-    //   },
-    //   series: undefined
-    // }
+    const { categories, data, selections } = this.state;
 
     const styles = {
       bmBurgerButton: {
@@ -129,10 +79,10 @@ class Burger extends Component {
         height: '30px',
         right: '36px',
         top: '26px',
-        color: 'white'
+        color: '#eaebed'
       },
       bmBurgerBars: {
-        background: '#373a47'
+        background: 'white'
       },
       bmCrossButton: {
         height: '24px',
@@ -162,8 +112,9 @@ class Burger extends Component {
       marks[i] = round
     })
     const sliderStyle = {
-      width: '350px',
-      left: '35%'
+      width: `30%`,
+      left: '30%',
+      height: `${this.state.sliderheight}px`
     }
 
 
@@ -175,10 +126,12 @@ class Burger extends Component {
           <a id="contact" className="menu-item" href="http://www.ncaa.com/interactive-bracket/basketball-men/d1">Bracket</a>
         </Menu>
         <main id="page-wrap">
-          <div>
+          <div className="container">
             <Bars
               categories={categories}
               data={data}
+              selections={selections}
+              sliderheight={this.state.sliderheight}
             />
             <Slider
               style={sliderStyle}

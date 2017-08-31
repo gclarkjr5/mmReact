@@ -202,6 +202,20 @@ module.exports = (Key, round, callback) => {
                 return x.Name
             });
 
+
+            const selections = _.map(orderObjs, x => {
+                return {
+                    Name: x.Name,
+                    Final4 : x[`Final Four`],
+                    Top2: x[`Top Two`],
+                    Champ: x.Champion,
+                    TotalCorrect: x.TotalCorrect,
+                    TotalPoints: x.TotalPoints,
+                    PtsRemain: x.PtsRemain
+                }
+            });
+            
+
             let Round64 = _.map(orderObjs, x => {
                 return x.Round64Points
             });
@@ -248,7 +262,8 @@ module.exports = (Key, round, callback) => {
             }];
             let data = {
                 categories: Participants,
-                series: series
+                series: series,
+                selections: selections
             }
             callback(data)
         })
