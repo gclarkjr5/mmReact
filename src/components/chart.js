@@ -32,7 +32,7 @@ class Bars extends Component {
             let TP = dataObj.TotalPoints
             let GC = dataObj.TotalCorrect
             let PR = _.isNull(dataObj.PtsRemain) ? 0 : dataObj.PtsRemain;
-            var tooltip = `<b>${this.key}</b><br>
+            var tooltip = `<b>${this.x}</b><br>
                             <b>${this.series.name}: ${this.y}<b><br>
                             Final Four: ${FinalFour}<br>
                             Top 2: ${Top2}<br>
@@ -55,7 +55,7 @@ class Bars extends Component {
                     colors={["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"]}
                 >
                     <Chart
-                        inverted
+                        inverted={true}
                         height={window.innerHeight - this.props.sliderheight}
                         zoomType={'x'}
                         backgroundColor={`rgba(255, 255, 255, 0)`}
