@@ -53,8 +53,6 @@ class Bars extends Component {
                 <HighchartsChart
                     plotOptions={plotOptions}
                     colors={["#246987", "#768d99", "#a7a9ac", "#00AFD5", "#bed3e4", "#004990", "#cddc38"]}
-                    
-                // Need to get an image inside the chart lower right corner
                 >
                     <Chart
                         inverted
